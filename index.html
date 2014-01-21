@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="completely.css">
+</head>
+<body>
+  <script src='completely.js'></script>
+  <div id='container' style='border:1px solid #999;'></div>
+  <script>
+     var auto = completely(document.getElementById('container'), {
+        fontSize : '24px',
+        fontFamily : 'Arial',
+        color:'#933',
+     });
+     auto.options = ['cocoa','coffee','orange'];
+     // auto.repaint(); 
+     // setTimeout(function() {
+     //  auto.input.focus();
+     // },0);
+  </script>
+</body>
+</html>
+

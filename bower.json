@@ -1,0 +1,19 @@
+{
+  "name": "nc/completely",
+  "main": "completely.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/nc/completely",
+  "authors": [
+    "Namit Chadha <namit@mech.io>"
+  ],
+  "description": "Completely adapted to use CSS styles",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
