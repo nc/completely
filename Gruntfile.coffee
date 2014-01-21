@@ -1,19 +1,30 @@
+path = require 'path'
+
 module.exports = (grunt) ->
   grunt.initConfig
-    coffee:
-      compile:
-        options:
-          bare: true
+    clean:
+      css: 'completely.css'
 
-        files:
-          "completely.js": "completely.coffee"
+    watch:
+      build:
+        files: [
+          '*.scss',
+          '*.html'
+        ]
+        tasks: ['build']
 
-   	watch:
-     	build:
-       	files: ['**/*.coffee']
-       	tasks: ['coffee']
+    sass: 
+      dist: 
+        files: 
+          'completely.css' : 'completely.scss'
 
-    grunt.loadNpmTasks 'grunt-contrib-coffee'
+    grunt.loadNpmTasks 'grunt-sass'
+    grunt.loadNpmTasks 'grunt-contrib-clean'
     grunt.loadNpmTasks 'grunt-contrib-watch'
 
-    grunt.registerTask 'default', 'coffee'
+    grunt.registerTask 'build', [
+      'clean'
+      'sass'
+    ]
+
+    grunt.registerTask 'default', 'build'

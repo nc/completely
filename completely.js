@@ -6,49 +6,30 @@
  * This Software shall be used for doing good things, not bad things.
  * 
 **/  
-function completely(container, config) {
-    config = config || {};
-    config.fontSize =                       config.fontSize   || '16px';
-    config.fontFamily =                     config.fontFamily || 'sans-serif';
-    config.color =                          config.color || '#333';
-    config.hintColor =                      config.hintColor || '#aaa';
-    config.backgroundColor =                config.backgroundColor || '#fff';
-    config.dropDownBorderColor =            config.dropDownBorderColor || '#aaa';
-    config.dropDownZIndex =                 config.dropDownZIndex || '100'; // to ensure we are in front of everybody
-    
+function completely(container) {
+    container = $(container)
 
-    // replace with an HTML template
-    var txtInput = document.createElement('input');
-    txtInput.className = "completely-input completely-reset"
-    txtInput.type ='text';
-    txtInput.spellcheck = false; 
+    var txtInput = $(container).find(".completely-input")[0];
+    var txtHint = $(container).find(".completely-hint")[0]; 
+    var wrapper = $(container).find(".completely-wrapper")[0];
     
-    var txtHint = txtInput.cloneNode(); 
-    txtHint.className = "completely-hint completely-reset"
-    txtHint.disabled='';        
-    
-    var wrapper = document.createElement('div');
-    wrapper.className = 'completely-wrapper completely-reset';
-    wrapper.style.position = 'relative';
-    
+    console.log("boot", $(container), txtInput, txtHint, wrapper);
+
     var prompt = document.createElement('div');
-    prompt.className = 'completely-prompt completely-reset';
     prompt.innerHTML = '';
 
     if (document.body === undefined) {
         throw 'document.body is undefined. The library was wired up incorrectly.';
     }
-    document.body.appendChild(prompt);            
+
     var w = prompt.getBoundingClientRect().right; // works out the width of the prompt.
-    wrapper.appendChild(prompt);
+    $(wrapper).append(prompt)
+
 
     // todo css this
     prompt.style.visibility = 'visible';
     prompt.style.left = '-'+w+'px';
     wrapper.style.marginLeft= w+'px';
-    
-    wrapper.appendChild(txtHint);
-    wrapper.appendChild(txtInput);
     
     var dropDown = document.createElement('div');
     dropDown.className = "completely-drop-down completely-reset"
@@ -105,9 +86,9 @@ function completely(container, config) {
             },
             highlight : function(index) {
                 if (oldIndex !=-1 && rows[oldIndex]) { 
-                    rows[oldIndex].style.backgroundColor = config.backgroundColor;
+                    rows[oldIndex].className = "completely-highlight"
                 }
-                rows[index].style.backgroundColor = config.dropDownOnHoverBackgroundColor; // <-- should be config
+                rows[index].className = "completely-highlight-active"
                 oldIndex = index;
             },
             move : function(step) { // moves the selection either up or down (unless it's not possible) step is either +1 or -1.
@@ -132,7 +113,7 @@ function completely(container, config) {
     }
     
     wrapper.appendChild(dropDown);
-    container.appendChild(wrapper);
+    container.append(wrapper);
     
     var spacer; 
     var leftSide; // <-- it will contain the leftSide part of the textfield (the bit that was already autocompleted)
@@ -142,7 +123,7 @@ function completely(container, config) {
         if (spacer === undefined) { // on first call only.
             spacer = document.createElement('span'); 
             spacer.className += "completely-spacer completely-reset"
-            document.body.appendChild(spacer);    
+            $(container).append(spacer)
         }        
         
         // Used to encode an HTML string into a plain text.

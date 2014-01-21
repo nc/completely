@@ -1,0 +1,25 @@
+{
+  "name": "nc-completely",
+  "version": "0.0.0",
+  "description": "complete.ly ===========",
+  "main": "completely.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nc/completely.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nc/completely/issues"
+  },
+  "homepage": "https://github.com/nc/completely",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-sass": "~0.10.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-clean": "~0.5.0"
+  }
+}

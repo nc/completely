@@ -3,22 +3,21 @@
 <head>
   <title></title>
   <link rel="stylesheet" type="text/css" href="completely.css">
+  <script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
+  <script src='completely.js'></script>
 </head>
 <body>
-  <script src='completely.js'></script>
-  <div id='container' style='border:1px solid #999;'></div>
+  <div class="completely">
+    <div class="completely-wrapper completely-reset">
+      <input type="text" spellcheck="false" class="completely-input completely-reset"/> 
+      <input type="text" spellcheck="false" class="completely-hint completely-reset" disabled/>
+    </div>
+  </div>
+
   <script>
-     var auto = completely(document.getElementById('container'), {
-        fontSize : '24px',
-        fontFamily : 'Arial',
-        color:'#933',
-     });
+     var auto = completely($('.completely'));
      auto.options = ['cocoa','coffee','orange'];
-     // auto.repaint(); 
-     // setTimeout(function() {
-     //  auto.input.focus();
-     // },0);
+     $(".completely-input").focus()
   </script>
 </body>
 </html>
-

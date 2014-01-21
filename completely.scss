@@ -1,0 +1,90 @@
+$completely-text-color: #222 !default;
+$completely-font-size: 1rem !default;
+$completely-font-family: Helvetica, sans-serif !default;
+$completely-highlight-active-color: #eee !default;
+$completely-hint-background-color: white !default;
+$completely-hint-text-color: #888 !default;
+$completely-drop-down-text-color: #888 !default;
+$completely-drop-down-hover-background-color: #eee !default;
+$completely-drop-down-border: 1px solid #eee !default;
+$completely-drop-down-padding: 0.25rem !default;
+
+.completely {
+	.completely-spacer {
+		visibility: hidden;
+		position: fixed;
+		left: 0;
+		white-space: pre;
+		font-size: $completely-font-size;
+		font-family: sans-serif;
+		font-weight: normal;
+	}
+
+	.completely-highlight-active {
+		background: $completely-highlight-active-color;
+	}
+
+	.completely-reset {
+		border: 0;
+		outline: 0;
+		margin: 0;
+		padding: 0;
+	}
+
+	input {
+		font-family: $completely-font-family;
+		font-size: $completely-font-size;
+		color: $completely-text-color;
+	}
+
+	input.completely-input {
+		background: transparent;
+		vertical-align: top;
+		position: relative;
+		z-index: 2;
+	}
+
+	input.completely-hint {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: $completely-hint-background-color;
+		border-color: transparent;
+		box-shadow: none;
+		color: $completely-hint-text-color;
+	}
+
+	div.completely-wrapper {
+		position: relative;
+	}
+
+	div.completely-drop-down-row {
+		color: $completely-drop-down-text-color;
+	}
+
+	div.completely-drop-down-row:hover {
+		background: $completely-drop-down-hover-background-color;
+	}
+
+	div.completely-prompt {
+		position: absolute;
+		top: 0;
+		left: 0;
+		overflow: hidden;
+		background: transparent;
+	}
+
+	div.completely-drop-down {
+		border: $completely-drop-down-border;
+		overflow-x: hidden;
+		// overflow-y: scroll;
+		font-size: $completely-font-size;
+		font-family: $completely-font-family;
+		white-space: pre;
+		cursor: default;
+		z-index: 100;
+		text-align: left;
+		visibility: hidden;
+		position: absolute !important;
+	}
+}
