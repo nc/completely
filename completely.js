@@ -12,8 +12,6 @@ function completely(container) {
     var txtInput = $(container).find(".completely-input")[0];
     var txtHint = $(container).find(".completely-hint")[0]; 
     var wrapper = $(container).find(".completely-wrapper")[0];
-    
-    console.log("boot", $(container), txtInput, txtHint, wrapper);
 
     var prompt = document.createElement('div');
     prompt.innerHTML = '';
@@ -244,12 +242,11 @@ function completely(container) {
         
         if (keyCode == 39 || keyCode == 35 || keyCode == 9) { // right,  end, tab  (autocomplete triggered)
           if (keyCode == 9) { // for tabs we need to ensure that we override the default behaviour: move to the next focusable HTML-element 
+            if (rs.onTab()) {
                 e.preventDefault();
                 e.stopPropagation();
-                if (txtHint.value.length == 0) {
-                  rs.onTab(); // tab was called with no action.
-                              // users might want to re-enable its default behaviour or handle the call somehow.
-                }
+            }
+            
             }
             if (txtHint.value.length > 0) { // if there is a hint
                 dropDownController.hide();
