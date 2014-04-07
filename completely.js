@@ -38,10 +38,10 @@ function completely(container) {
         var ix = 0;
         var oldIndex = -1;
 
-        var onMouseDown =  function() { p.hide(); p.onmouseselection(this.__hint); }
+        var onMouseDown =  function() { p.onmouseselection(this.__hint); p.hide(); }
 
         var p = {
-            hide :  function() { elem.style.visibility = 'hidden'; },
+            hide :  function() { elem.style.visibility = 'hidden'; rs.onHide(); },
             refresh : function(token, array) {
                 elem.style.visibility = 'hidden';
                 ix = 0;
@@ -53,7 +53,7 @@ function completely(container) {
 
                 rows = [];
                 for (var i=0;i<array.length;i++) {
-                    if (array[i].indexOf(token)!==0) { continue; }
+                    if (token && array[i].indexOf(token)!==0) { continue; }
                     var divRow =document.createElement('div');
                     divRow.className = "completely-drop-down-row"
                     divRow.onmousedown = onMouseDown;
@@ -107,6 +107,7 @@ function completely(container) {
     dropDownController.onmouseselection = function(text) {
         txtInput.value = txtHint.value = leftSide+text;
         rs.onChange(txtInput.value); // <-- forcing it.
+        rs.onSelect(txtInput.value);
         registerOnTextChangeOldValue = txtInput.value; // <-- ensure that mouse down will not show the dropDown now.
         setTimeout(function() { txtInput.focus(); },0);  // <-- I need to do this for IE
     }
@@ -142,6 +143,8 @@ function completely(container) {
         onEnter :     function() {},               // defaults to no action.
         onTab :       function() {},               // defaults to no action.
         onChange:     function() { rs.repaint() }, // defaults to repainting.
+        onSelect:     function() {},               // defaults to no action.
+        onHide:       function() {},               // defaults to no action.
         startFrom:    0,
         options:      [],
         wrapper : wrapper,      // Only to allow  easy access to the HTML elements to the final user (possibly for minor customizations)
@@ -150,6 +153,7 @@ function completely(container) {
         dropDown :  dropDown,         // Only to allow  easy access to the HTML elements to the final user (possibly for minor customizations)
         prompt : prompt,
         setText : function(text) {
+            registerOnTextChangeOldValue = text;
             txtHint.value = text;
             txtInput.value = text;
         },
@@ -193,6 +197,7 @@ function completely(container) {
     **/
     var registerOnTextChange = function(txt, callback) {
         registerOnTextChangeOldValue = txt.value;
+
         var handler = function() {
             var value = txt.value;
             if (registerOnTextChangeOldValue !== value) {
@@ -264,20 +269,22 @@ function completely(container) {
         }
 
         if (keyCode == 13) {       // enter  (autocomplete triggered)
-            if (txtHint.value.length == 0) { // if there is a hint
-                rs.onEnter();
+            if (txtHint.value.length == 0) { // if there is no hint
+                rs.onEnter(txtInput.value);
             } else {
                 var wasDropDownHidden = (dropDown.style.visibility == 'hidden');
+
+                rs.onEnter(txtHint.value);
+
                 dropDownController.hide();
 
                 if (wasDropDownHidden) {
                     txtHint.value = txtInput.value; // ensure that no hint is left.
                     txtInput.focus();
-                    rs.onEnter();
                     return;
                 }
 
-                txtInput.value = txtHint.value;
+
                 var hasTextChanged = registerOnTextChangeOldValue != txtInput.value
                 registerOnTextChangeOldValue = txtInput.value; // <-- to avoid dropDown to appear again.
                                                           // for example imagine the array contains the following words: bee, beef, beetroot
